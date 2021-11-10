@@ -1,4 +1,4 @@
-import hashlib, os, sys
+import hashlib, os, sys, time
 '''
 This script will take a hash of a folder. This scans subfolders recursively. This does not scan empty folders.
 Argument usage: <mode ('save' or 'load')> <folder to hash> <hash savefile name>
@@ -27,6 +27,8 @@ else:
 	mode = input("'load' or 'save' hash save:")
 	scanfolder = input("Folder to hash:")
 	savefile = input("Hash save filename:")
+#start timer
+timeStart = time.time()
 #adjust HashType to loaded type.
 if mode == "load":
 	with open(savefile,"rt") as file:
@@ -115,3 +117,4 @@ elif mode == 'load':
 			except:
 				pass
 			i+=1
+print("Time elapsed: "+str(time.time()-timeStart)+" seconds")
