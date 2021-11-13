@@ -9,7 +9,6 @@ HashType = hashlib.sha256 #valid choices are sha1,sha224,sha256,sha384,sha512,md
 #globals
 fileslist = []
 hashfiles = []
-totalhash = ""
 #functions
 def ScanFolderRecursive(folder):
 	with os.scandir(folder) as dir:
@@ -55,11 +54,15 @@ if mode == "load":
 #scan folder
 ScanFolderRecursive(scanfolder)
 #hash folder
-print("Hashing with "+HashType().name+". Algorithm can be changed in file.\n")
+print("Hashing with "+HashType().name+". Algorithm can be changed in file.")
+i=1
 for x in fileslist:
 	with open(x,'rb') as file:
 		hash = HashType
 		hashfiles.append(hash(file.read()).hexdigest())
+		print(str(i)+"/"+str(len(fileslist))+" files complete", end="\r")
+		i+=1
+print("\n")
 #total hash
 hash = HashType()
 for x in hashfiles:
